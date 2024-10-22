@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Include Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Include Highlight.js CSS -->
+    <link rel="stylesheet" href="highlightjs/github.min.css">
+</head>
+<body>
+    <main class="chat-container">
+        <header class="chat-header">
+            <button class="settings-button" id="settings-button" aria-label="Settings">
+                <!-- SVG for Gear Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="gear-icon" viewBox="0 0 16 16">
+                    <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492z"/>
+                    <path fill-rule="evenodd" d="M13.936 7.94a6.978 6.978 0 0 0 .063-.94 6.978 6.978 0 0 0-.063-.94l2.121-1.654a.5.5 0 0 0 .11-.641l-2-3.464a.5.5 0 0 0-.605-.223l-2.49 1a7.025 7.025 0 0 0-1.623-.94l-.38-2.65A.5.5 0 0 0 9.18 0h-4.36a.5.5 0 0 0-.496.43l-.38 2.65a7.025 7.025 0 0 0-1.623.94l-2.49-1a.5.5 0 0 0-.605.223l-2 3.464a.5.5 0 0 0 .11.641L2.064 6.06a6.978 6.978 0 0 0-.063.94 6.978 6.978 0 0 0 .063.94L.943 9.594a.5.5 0 0 0-.11.641l2 3.464a.5.5 0 0 0 .605.223l2.49-1a7.025 7.025 0 0 0 1.623.94l.38 2.65a.5.5 0 0 0 .496.43h4.36a.5.5 0 0 0 .496-.43l.38-2.65a7.025 7.025 0 0 0 1.623-.94l2.49 1a.5.5 0 0 0 .605-.223l2-3.464a.5.5 0 0 0-.11-.641L13.936 7.94zM8 10.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/>
+                </svg>
+            </button>
+            <h1>AI Chatbot</h1>
+        </header>
+        <section class="chat-messages" id="chat-messages" aria-live="polite">
+            <!-- Messages appear here -->
+        </section>
+        <form class="chat-input" id="chat-form">
+            <label for="user-input" class="visually-hidden">Enter Your Message...</label>
+            <textarea id="user-input" rows="1" placeholder="Enter your message..." required></textarea>
+            <button type="submit" id="send-button" aria-label="Send Message">Send</button>
+        </form>
+    </main>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settings-modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <h2 id="modal-title">Settings</h2>
+            <div class="theme-selector">
+                <label for="theme-select">Choose a Theme:</label>
+                <select id="theme-select">
+                    <option value="light">Light Mode</option>
+                    <option value="dark">Dark Mode</option>
+                </select>
+            </div>
+            <button class="close-modal" id="close-modal" aria-label="Close Settings">&times;</button>
+        </div>
+    </div>
+
+    <!-- Include Local Scripts -->
+    <script src="js/marked.min.js"></script>
+    <script src="js/purify.min.js"></script>
+    <!-- Include Highlight.js -->
+    <script src="highlightjs/highlight.min.js"></script>
+    <!-- Initialize Highlight.js -->
+    <script>hljs.highlightAll();</script>
+    <script src="script.js"></script>
+</body>
+</html>
