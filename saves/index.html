@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Head Content -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurora AI</title>
+    <!-- Include Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Include Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Include Highlight.js CSS -->
+    <link rel="stylesheet" href="highlightjs/github.min.css">
+    <!-- Include Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-p1CmJx6Z0aFQe81m+eU0jExkBSGwCg6ZbRQgC7unPtOv6tYt0xZ2oPfg0rHqSmKd4bN6onvC4+kJrRrHJ7nHdw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <main class="main-container">
+        <header class="chat-header">
+            <!-- Left Section: Chat and Image Buttons -->
+            <div class="header-left">
+                <!-- Chat Button -->
+                <button class="header-button active" id="chat-button" aria-label="Chat">
+                    <i class="fas fa-comments"></i> Chat&ensp;
+                </button>
+                
+                <!-- Image Button -->
+                <button class="header-button" id="image-button" aria-label="Image">
+                    <i class="fas fa-image"></i> Image&ensp;
+                </button>
+            </div>
+
+            <!-- Center Section: Title -->
+            <h1 class="header-title">Aurora AI</h1>
+
+            <!-- Right Section: Dropdown Menu -->
+            <div class="header-right">
+                <!-- Dropdown Menu -->
+                <div class="dropdown">
+                    <button class="dropdown-button" id="dropdown-button" aria-haspopup="true" aria-expanded="false" aria-label="Menu">
+                        &#9776; <!-- Hamburger Icon -->
+                    </button>
+                    <div class="dropdown-content" id="dropdown-content" aria-labelledby="dropdown-button">
+                        <button class="dropdown-item" id="login-button"><i class="fas fa-sign-in-alt"></i> Login</button>
+                        <button class="dropdown-item" id="settings-button"><i class="fas fa-cog"></i> Settings</button>
+                        <button class="dropdown-item" id="aboutus-button"><i class="fas fa-info-circle"></i> About</button>
+                        <button class="dropdown-item" id="upgrade-plan-button"><i class="fas fa-info-circle"></i> Upgrade Plan</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Chat Section -->
+        <section class="chat-section" id="chat-section" aria-live="polite">
+            <div class="chat-messages" id="chat-messages">
+                <!-- Messages appear here -->
+            </div>
+            <form class="chat-input" id="chat-form">
+                <label for="user-input" class="visually-hidden">Enter Your Message...</label>
+                <textarea id="user-input" rows="1" placeholder="Enter your message..." required></textarea>
+                <button type="submit" id="send-button" aria-label="Send Message"><i class="fas fa-paper-plane"></i> Send</button>
+            </form>
+        </section>
+
+        <!-- Image Generation Section -->
+        <section class="image-section" id="image-section" hidden>
+            <form class="image-form" id="image-form">
+                <h2>Generate Image</h2>
+                <div class="form-group">
+                    <label for="prompt">Prompt</label>
+                    <input type="text" id="prompt" name="prompt" placeholder="the quick brown fox jumps over the lazy dog">
+                </div>
+                <div class="form-group">
+                    <label for="width">Width</label>
+                    <input type="number" id="width" name="width" placeholder="512" min="64" max="2048">
+                </div>
+                <div class="form-group">
+                    <label for="height">Height</label>
+                    <input type="number" id="height" name="height" placeholder="512" min="64" max="2048">
+                </div>
+                <div class="form-group">
+                    <label for="negative-prompt">Negative Prompt</label>
+                    <input type="text" id="negative-prompt" name="negative-prompt" placeholder="bad quality">
+                </div>
+                <button type="submit" class="submit-button"><i class="fas fa-download"></i> Generate</button>
+            </form>
+            <div class="generated-image" id="generated-image" hidden>
+                <h3>Generated Image:</h3>
+                <!-- Loading Bar -->
+                <div class="loading-bar-container" id="loading-bar-container" hidden>
+                    <div class="loading-bar" id="loading-bar"></div>
+                </div>
+                <img src="" alt="Generated by Aurora AI" id="result-image">
+                <button id="download-image" class="download-button" disabled><i class="fas fa-download"></i> Image has not loaded yet</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settings-modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <h2 id="modal-title">Settings</h2>
+            <div class="theme-selector">
+                <label for="theme-select">Choose a Theme:</label>
+                <select id="theme-select">
+                    <option value="light">Light Mode</option>
+                    <option value="dark">Dark Mode</option>
+                </select>
+            </div>
+            <button class="close-modal" id="close-modal" aria-label="Close Settings">&times;</button>
+        </div>
+    </div>
+
+    <!-- Include Local Scripts -->
+    <script src="js/marked.min.js"></script>
+    <script src="js/purify.min.js"></script>
+    <!-- Include Highlight.js -->
+    <script src="highlightjs/highlight.min.js"></script>
+    <!-- Initialize Highlight.js -->
+    <script>hljs.highlightAll();</script>
+    <!-- Custom Script -->
+    <script src="script.js"></script>
+</body>
+</html>

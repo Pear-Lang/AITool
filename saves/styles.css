@@ -1,0 +1,732 @@
+/* styles.css */
+/* Reset and Basic Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    font-family: 'Poppins', sans-serif, 'Roboto', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    height: 100%;
+    width: 100%;
+    overflow: hidden; /* Prevent scrolling */
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Theme Variables */
+:root {
+    /* Light Theme - Soft Gradient Colors */
+    --background-color: #ffffff;
+    --header-background: #f0f4f8;
+    --header-text: #24292e;
+    --message-background-user: #dcf8c6;
+    --message-background-bot: #f6f8fa;
+    --input-background: #f6f8fa;
+    --input-border: #d1d5da;
+    --button-background: #1E90FF; /* DodgerBlue for primary buttons */
+    --button-hover: #1C86EE;
+    --text-color: #24292e;
+    --dropdown-background: #ffffff;
+    --dropdown-border: #d1d5da;
+    --dropdown-hover: #e6e6e6;
+    --gradient-start: #1E90FF;
+    --gradient-middle: #BA55D3;
+    --gradient-end: #FF69B4;
+}
+
+body.dark {
+    /* Dark Theme - Elegant Dark Colors */
+    --background-color: #1e1e1e;
+    --header-background: #2d2d2d;
+    --header-text: #c5c5c5;
+    --message-background-user: #007acc;
+    --message-background-bot: #2d2d2d;
+    --input-background: #2d2d2d;
+    --input-border: #3c3c3c;
+    --button-background: #0e639c; /* Blue color for send button */
+    --button-hover: #1177bb;
+    --text-color: #c5c5c5;
+    --dropdown-background: #3c3c3c;
+    --dropdown-border: #555555;
+    --dropdown-hover: #4d4d4d;
+    --gradient-start: #1E90FF;
+    --gradient-middle: #BA55D3;
+    --gradient-end: #FF69B4;
+}
+
+/* Visually Hidden */
+.visually-hidden {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+/* Base Font Size for Responsiveness */
+html {
+    font-size: 16px; /* Base font size */
+}
+
+@media (max-width: 600px) {
+    html {
+        font-size: 14px; /* Slightly smaller base font size on mobile */
+    }
+}
+
+/* Main Container */
+.main-container {
+    position: relative;
+}
+
+/* General Header Styling */
+.chat-header {
+    background-color: var(--header-background);
+    color: var(--header-text);
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    border-bottom: 1px solid var(--input-border);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-title {
+    flex: 1;
+    text-align: center;
+    font-size: clamp(1.5rem, 5vw, 2rem); /* Responsive font size */
+    font-weight: 700;
+    background: linear-gradient(270deg, 
+        var(--gradient-start) 0%, 
+        var(--gradient-middle) 33%, 
+        var(--gradient-end) 66%, 
+        var(--gradient-start) 100%
+    );
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: gradientAnimation 9s ease infinite;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Header Left and Right Sections */
+.header-left,
+.header-right {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+}
+
+/* Smaller Header Buttons */
+.header-button {
+    background: none;
+    border: none;
+    color: var(--header-text);
+    cursor: pointer;
+    padding: 4px 8px; /* Reduced padding */
+    margin-right: 5px;
+    font-size: 0.75rem; /* Smaller font size */
+    font-weight: 500;
+    border-radius: 4px; /* Reduced border radius */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 3px; /* Reduced gap between elements */
+    height: auto;
+}
+
+.header-button i {
+    display: inline-block;
+    line-height: 1;
+    margin: 0;
+    vertical-align: middle;
+    margin-right: 3px; /* Reduced margin */
+}
+
+.header-button:hover,
+.header-button:focus {
+    background-color: rgba(0, 0, 0, 0.05);
+    outline: none;
+}
+
+.header-button.active {
+    background-color: var(--button-background);
+    color: white;
+}
+
+/* Dropdown Menu Styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-button {
+    background: none;
+    border: none;
+    color: var(--header-text);
+    cursor: pointer;
+    padding: 8px;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-button:hover,
+.dropdown-button:focus {
+    color: var(--button-background);
+    outline: none;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: var(--dropdown-background);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border: 1px solid var(--dropdown-border);
+    border-radius: 8px;
+    z-index: 1;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.dropdown-content.show {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+.dropdown-content .dropdown-item {
+    color: var(--text-color);
+    padding: 10px 12px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-content .dropdown-item:hover,
+.dropdown-content .dropdown-item:focus {
+    background-color: var(--dropdown-hover);
+    outline: none;
+}
+
+.dropdown-item i {
+    margin-right: 8px;
+}
+
+/* Chat and Image Sections */
+.chat-section,
+.image-section {
+    flex: 1;
+    overflow: hidden;
+    background-color: var(--background-color);
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    position: relative;
+}
+
+.chat-section.hidden,
+.image-section.hidden {
+    display: none;
+}
+
+/* Chat Messages */
+.chat-messages {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+    padding: 80px 20px 20px 20px; /* Adjust padding to account for header and input */
+    background-color: var(--background-color);
+}
+
+/* Message Styles */
+.message {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.message.user {
+    align-items: flex-end;
+}
+
+.message.bot {
+    align-items: flex-start;
+}
+
+.message-content {
+    max-width: 70%;
+    padding: 12px 18px;
+    border-radius: 20px;
+    position: relative;
+    word-wrap: break-word;
+    font-size: 1rem;
+    line-height: 1.6;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    background-color: var(--message-background-bot);
+    transition: background-color 0.3s ease;
+}
+
+.message.user .message-content {
+    background-color: var(--message-background-user);
+    border-top-right-radius: 0;
+}
+
+.message.bot .message-content {
+    background-color: var(--message-background-bot);
+    border-top-left-radius: 0;
+}
+
+/* Markdown Rendering */
+.message-content h1,
+.message-content h2,
+.message-content h3,
+.message-content h4,
+.message-content h5,
+.message-content h6 {
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.message-content p {
+    margin-bottom: 10px;
+}
+
+.message-content strong {
+    font-weight: bold;
+}
+
+.message-content em {
+    font-style: italic;
+}
+
+.message-content code {
+    background-color: rgba(27,31,35,0.05);
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}
+
+.message-content pre {
+    background-color: rgba(27,31,35,0.05);
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    margin-bottom: 10px;
+}
+
+.message-content ul,
+.message-content ol {
+    padding-left: 20px;
+    margin-bottom: 10px;
+}
+
+.message-content img.chat-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+/* Scrollbar Styling */
+.chat-messages::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background: #c1c1c1; 
+    border-radius: 4px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8; 
+}
+
+/* Chat Input */
+.chat-input {
+    display: flex;
+    border-top: 1px solid var(--input-border);
+    padding: 10px 15px;
+    background-color: var(--input-background);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-width: 100%;
+    margin: 0 auto;
+    z-index: 100;
+}
+
+.chat-input textarea {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid var(--input-border);
+    border-radius: 25px;
+    resize: none;
+    font-size: 1em;
+    outline: none;
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    background-color: #ffffff;
+    color: #24292e;
+}
+
+body.dark .chat-input textarea {
+    background-color: #3c3c3c;
+    color: #c5c5c5;
+}
+
+.chat-input textarea:focus {
+    border-color: var(--button-background);
+}
+
+.chat-input button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    border: none;
+    background-color: var(--button-background);
+    color: white;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.chat-input button i {
+    margin-right: 5px;
+}
+
+.chat-input button:hover,
+.chat-input button:focus {
+    background-color: var(--button-hover);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: var(--background-color);
+    padding: 25px 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 450px;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    color: var(--text-color);
+    animation: fadeIn 0.3s ease;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: #ff0000;
+}
+
+.theme-selector {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.theme-selector label {
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.theme-selector select {
+    padding: 10px;
+    border: 1px solid var(--input-border);
+    border-radius: 5px;
+    font-size: 1em;
+    background-color: var(--input-background);
+    color: var(--text-color);
+    outline: none;
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.theme-selector select:focus {
+    border-color: var(--button-background);
+}
+
+/* Code Blocks Styling */
+.message-content pre {
+    background-color: rgba(27,31,35,0.05);
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    margin-bottom: 10px;
+}
+
+.message-content code {
+    background-color: rgba(27,31,35,0.05);
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}
+
+/* Dark Theme Code Blocks */
+body.dark .message-content pre {
+    background-color: #2d2d2d;
+}
+
+body.dark .message-content code {
+    background-color: #3c3c3c;
+}
+
+/* Fade-in Animation for Modal */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Image Form Styling */
+.image-section {
+    overflow-y: auto;
+    padding: 80px 20px 20px 20px; /* Adjust padding to account for header */
+}
+
+.image-form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.image-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    color: var(--text-color);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.form-group input {
+    padding: 10px 15px;
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+    font-size: 1em;
+    outline: none;
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    background-color: var(--input-background);
+    color: var(--text-color);
+}
+
+.form-group input:focus {
+    border-color: var(--button-background);
+}
+
+.submit-button {
+    padding: 12px 20px;
+    border: none;
+    background-color: var(--button-background);
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.submit-button i {
+    margin-right: 8px;
+}
+
+.submit-button:hover,
+.submit-button:focus {
+    background-color: var(--button-hover);
+    transform: translateY(-2px);
+}
+
+/* Generated Image Styling */
+.generated-image {
+    max-width: 600px;
+    margin: 20px auto 0 auto;
+    text-align: center;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.generated-image h3 {
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+/* Loading Bar Styles */
+.loading-bar-container {
+    width: 100%;
+    max-width: 400px;
+    height: 20px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.loading-bar {
+    width: 0%;
+    height: 100%;
+    background-color: var(--button-background);
+    transition: width 0.5s ease;
+}
+
+.generated-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.download-button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border: none;
+    background-color: var(--button-background);
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.download-button i {
+    margin-right: 8px;
+}
+
+.download-button:hover,
+.download-button:focus {
+    background-color: var(--button-hover);
+    transform: translateY(-2px);
+}
+
+/* Prevent horizontal and vertical scrolling */
+body, html {
+    overflow: hidden;
+}
+
+.chat-messages {
+    overflow-y: auto;
+}
+
+@media (min-width: 600px) {
+    .header-button {
+        padding: 8px 12px; /* Increase padding */
+        font-size: 1rem;   /* Increase font size */
+        border-radius: 6px; /* Increase border radius */
+        gap: 5px;          /* Increase gap between elements */
+    }
+}
+
+/* Focus Styles for Accessibility */
+.header-button:focus,
+.dropdown-button:focus,
+.dropdown-item:focus,
+.chat-input textarea:focus,
+.chat-input button:focus,
+.theme-selector select:focus {
+    outline: 2px solid var(--button-background);
+    outline-offset: 2px;
+}

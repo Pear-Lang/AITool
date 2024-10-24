@@ -1,0 +1,1 @@
+(Get-ChildItem -Recurse -File | Get-Content | Measure-Object -Line).Lines
